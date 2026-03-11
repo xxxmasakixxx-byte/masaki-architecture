@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>正木 建築設計事務所 | Masaki Architecture Design</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+JP:wght@300;400;500&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5F0E8;
+    --warm-white: #FAF8F4;
+    --charcoal: #2C2C2A;
+    --warm-gray: #8A8580;
+    --accent: #8B6F47;
+    --accent-light: #C4A882;
+    --line: rgba(44,44,42,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--warm-white);
+    color: var(--charcoal);
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* LANGUAGE TOGGLE */
+  .lang-toggle {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    z-index: 1000;
+    display: flex;
+    gap: 0.5rem;
+    background: rgba(245,240,232,0.9);
+    backdrop-filter: blur(8px);
+    padding: 0.4rem 0.8rem;
+    border: 1px solid var(--line);
+  }
+  .lang-btn {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--warm-gray);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.2rem 0.4rem;
+    transition: color 0.3s;
+  }
+  .lang-btn.active { color: var(--charcoal); font-weight: 400; }
+  .lang-btn:hover { color: var(--charcoal); }
+  .lang-divider { color: var(--line); font-size: 0.75rem; line-height: 1.8; }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 999;
+    padding: 2rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    mix-blend-mode: multiply;
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.2em;
+    color: var(--charcoal);
+    text-decoration: none;
+    font-weight: 300;
+  }
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--warm-gray);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--charcoal); }
+
+  /* HERO */
+  #hero {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+  }
+  .hero-left {
+    background: var(--cream);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 6rem 4rem;
+    position: relative;
+  }
+  .hero-left::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 1px;
+    height: 100%;
+    background: var(--line);
+  }
+  .hero-tagline {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.3s forwards;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 5vw, 5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--charcoal);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.5s forwards;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .hero-subtitle {
+    font-size: 0.85rem;
+    line-height: 1.9;
+    color: var(--warm-gray);
+    max-width: 32ch;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.7s forwards;
+  }
+  .hero-cta {
+    margin-top: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.9s forwards;
+  }
+  .btn-primary {
+    display: inline-block;
+    padding: 0.9rem 2.5rem;
+    background: var(--charcoal);
+    color: var(--cream);
+    font-family: 'Jost', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s;
+  }
+  .btn-primary:hover {
+    background: var(--accent);
+  }
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(rgba(44,44,42,0.75), rgba(44,44,42,0.75)), url('images/01.png') center/cover no-repeat;
+  }
+  .hero-bg-pattern {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    opacity: 0.08;
+  }
+  .hero-bg-pattern div {
+    border: 0.5px solid var(--cream);
+  }
+  .hero-right-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem;
+  }
+  .hero-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 12rem;
+    font-weight: 200;
+    color: rgba(245,240,232,0.06);
+    line-height: 1;
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    user-select: none;
+  }
+  .hero-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    opacity: 0;
+    animation: fadeIn 1s ease 1.2s forwards;
+  }
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--accent-light);
+    line-height: 1;
+  }
+  .stat-label {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: rgba(245,240,232,0.5);
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+  }
+  .stat-divider {
+    width: 1px;
+    height: 40px;
+    background: rgba(245,240,232,0.15);
+    margin: 0 auto;
+  }
+
+  /* SECTIONS */
+  section { padding: 8rem 4rem; }
+
+  .section-label {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 2rem;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    font-weight: 300;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  /* ABOUT */
+  #about {
+    background: var(--cream);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+  .about-image-wrap {
+    position: relative;
+    aspect-ratio: 3/4;
+    background: var(--charcoal);
+    overflow: hidden;
+  }
+  .about-image-inner {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .about-initials {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10rem;
+    font-weight: 200;
+    color: rgba(245,240,232,0.08);
+    user-select: none;
+  }
+  .about-frame {
+    position: absolute;
+    top: 1.5rem; left: 1.5rem; right: -1.5rem; bottom: -1.5rem;
+    border: 1px solid var(--accent-light);
+    pointer-events: none;
+    opacity: 0.4;
+  }
+  .about-content { max-width: 48ch; }
+  .about-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 400;
+    margin-bottom: 0.3rem;
+  }
+  .about-role {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: var(--warm-gray);
+    margin-bottom: 2rem;
+  }
+  .about-text {
+    font-size: 0.9rem;
+    line-height: 2;
+    color: #555550;
+    margin-bottom: 1.5rem;
+  }
+  .about-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 2rem;
+  }
+  .skill-tag {
+    padding: 0.4rem 1rem;
+    border: 1px solid var(--line);
+    font-family: 'Jost', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--warm-gray);
+    text-transform: uppercase;
+  }
+
+  /* SERVICES */
+  #services { background: var(--warm-white); }
+  .services-header { max-width: 50ch; margin-bottom: 4rem; }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 1px solid var(--line);
+  }
+  .service-card {
+    padding: 3rem;
+    border-right: 1px solid var(--line);
+    position: relative;
+    transition: background 0.4s;
+  }
+  .service-card:last-child { border-right: none; }
+  .service-card:hover { background: var(--cream); }
+  .service-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    font-weight: 200;
+    color: rgba(44,44,42,0.07);
+    line-height: 1;
+    margin-bottom: 1.5rem;
+  }
+  .service-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 0.3rem;
+  }
+  .service-name-en {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--warm-gray);
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+  }
+  .service-desc {
+    font-size: 0.82rem;
+    line-height: 1.9;
+    color: #777772;
+    margin-bottom: 2rem;
+  }
+  .service-price-label {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--warm-gray);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .service-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--accent);
+  }
+
+  /* PORTFOLIO */
+  #portfolio { background: var(--charcoal); }
+  #portfolio .section-label { color: var(--accent-light); }
+  #portfolio .section-label::before { background: var(--accent-light); }
+  #portfolio .section-title { color: var(--cream); }
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto;
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .portfolio-item {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    background: rgba(245,240,232,0.04);
+  }
+  .portfolio-item:first-child {
+    grid-column: span 2;
+  }
+  .portfolio-visual {
+    aspect-ratio: 16/9;
+    background: linear-gradient(135deg, rgba(139,111,71,0.2), rgba(44,44,42,0.8));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .portfolio-item:first-child .portfolio-visual { aspect-ratio: 16/7; }
+  .portfolio-inner-pattern {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    opacity: 0.1;
+  }
+  .portfolio-inner-pattern div:nth-child(odd) {
+    border: 0.5px solid var(--cream);
+  }
+  .portfolio-label {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 1.5rem;
+    background: linear-gradient(transparent, rgba(20,20,18,0.8));
+  }
+  .portfolio-label-jp {
+    font-size: 0.95rem;
+    color: var(--cream);
+    margin-bottom: 0.2rem;
+  }
+  .portfolio-label-meta {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    color: var(--accent-light);
+    text-transform: uppercase;
+  }
+  .portfolio-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(139,111,71,0.0);
+    transition: background 0.4s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .portfolio-item:hover .portfolio-overlay {
+    background: rgba(139,111,71,0.15);
+  }
+
+  /* CONTACT */
+  #contact {
+    background: var(--cream);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+  .contact-left { padding-top: 1rem; }
+  .contact-intro {
+    font-size: 0.9rem;
+    line-height: 2;
+    color: #666660;
+    margin-top: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+  .contact-info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .contact-info-item:last-child { border-bottom: none; }
+  .contact-info-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 0.75rem;
+    color: var(--accent);
+  }
+  .contact-info-label {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    color: var(--warm-gray);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .contact-info-value { font-size: 0.85rem; color: var(--charcoal); }
+
+  /* FORM */
+  .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+  .form-label {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    color: var(--warm-gray);
+    text-transform: uppercase;
+  }
+  .form-input, .form-textarea {
+    background: var(--warm-white);
+    border: 1px solid var(--line);
+    padding: 0.9rem 1rem;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.85rem;
+    color: var(--charcoal);
+    outline: none;
+    transition: border-color 0.3s;
+    resize: none;
+    font-weight: 300;
+  }
+  .form-input:focus, .form-textarea:focus {
+    border-color: var(--accent);
+  }
+  .form-textarea { height: 130px; }
+  .form-submit {
+    align-self: flex-start;
+    padding: 1rem 3rem;
+    background: var(--charcoal);
+    color: var(--cream);
+    font-family: 'Jost', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .form-submit:hover { background: var(--accent); }
+
+  /* FOOTER */
+  footer {
+    background: var(--charcoal);
+    padding: 3rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(245,240,232,0.08);
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    letter-spacing: 0.2em;
+    color: var(--cream);
+    font-weight: 300;
+  }
+  .footer-copy {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    color: rgba(245,240,232,0.3);
+  }
+
+  /* DIVIDER LINE */
+  .h-line {
+    width: 100%;
+    height: 1px;
+    background: var(--line);
+    margin: 0;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* SCROLL REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* LANGUAGE CLASSES */
+  .ja, .en { }
+  body.lang-en .ja { display: none; }
+  body.lang-ja .en { display: none; }
+  body { }
+
+  @media (max-width: 900px) {
+    nav { padding: 1.5rem 2rem; }
+    .nav-links { display: none; }
+    #hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    section { padding: 5rem 2rem; }
+    #about, #contact { grid-template-columns: 1fr; gap: 3rem; }
+    .services-grid { grid-template-columns: 1fr; }
+    .service-card { border-right: none; border-bottom: 1px solid var(--line); }
+    .portfolio-grid { grid-template-columns: 1fr; }
+    .portfolio-item:first-child { grid-column: span 1; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+    .lang-toggle { top: 1rem; right: 1rem; }
+  }
+  img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  /* MODAL */
+    .modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.9);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    }
+    .modal.active {
+    display: flex;
+    }
+    .modal-img {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    }
+    .modal-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-family: 'Jost', sans-serif;
+    }
+    .modal-prev, .modal-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: white;
+      font-size: 4rem;
+      cursor: pointer;
+      padding: 1rem;
+      opacity: 0.7;
+      transition: opacity 0.3s;
+    }
+    .modal-prev:hover, .modal-next:hover { opacity: 1; }
+    .modal-prev { left: 1rem; }
+    .modal-next { right: 1rem; }
+    .modal-counter {
+      position: absolute;
+      bottom: 1.5rem;
+      color: rgba(255,255,255,0.6);
+      font-family: 'Jost', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+    }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body class="lang-ja">
+
+<!-- Language Toggle -->
+<div class="lang-toggle">
+  <button class="lang-btn active" onclick="setLang('ja')" id="btn-ja">JP</button>
+  <span class="lang-divider">|</span>
+  <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
+</div>
+
+<!-- Navigation -->
+<nav>
+  <a href="#hero" class="nav-logo">
+    <i class="fa-solid fa-compass-drafting"></i>
+    <span class="ja">正木建築設計事務所</span>
+    <span class="en">Masaki Architecture</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about"><span class="ja">プロフィール</span><span class="en">About</span></a></li>
+    <li><a href="#services"><span class="ja">サービス</span><span class="en">Services</span></a></li>
+    <li><a href="#portfolio"><span class="ja">実績</span><span class="en">Portfolio</span></a></li>
+    <li><a href="#contact"><span class="ja">お問い合わせ</span><span class="en">Contact</span></a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-tagline">
+      <span class="ja">ー  暮らしに、やさしい設計を  ー</span>
+      <span class="en">Thoughtful design for the way you live.</span>
+    </div>
+    <h1 class="hero-title">
+      <span class="ja">あなたの<br>暮らしに<em><br>寄り添う</em><br>住まいを、<br><em>共に。</em></span>
+      <span class="en">Designed around <br>Your Life. <em>Built together</em></span>
+    </h1>
+    <p class="hero-subtitle">
+      <span class="ja">住む人の想いと対話しながら、長く愛される住宅を丁寧に設計します。</span>
+      <span class="en">Each home is designed through careful dialogue with those who will live there, creating spaces that are loved for generations.</span>
+    </p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn-primary">
+        <span class="ja">無料相談を予約する</span>
+        <span class="en">Book a Free Consultation</span>
+      </a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-bg-pattern">
+      <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+      <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+      <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+      <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+      <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+      <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+      <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+      <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+      <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+      <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+    </div>
+    <div class="hero-right-content">
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num">15<span style="font-size:1.5rem">+</span></div>
+          <div class="stat-label"><span class="ja">経験年数</span><span class="en">Years Exp.</span></div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-num">80<span style="font-size:1.5rem">+</span></div>
+          <div class="stat-label"><span class="ja">設計実績</span><span class="en">Projects</span></div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-num">98<span style="font-size:1.2rem">%</span></div>
+          <div class="stat-label"><span class="ja">顧客満足度</span><span class="en">Satisfaction</span></div>
+        </div>
+      </div>
+      <div class="hero-number">A</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-image-wrap reveal">
+    <div class="about-image-inner">
+      <img src="images/house01.png" alt="格子のある家">
+    </div>
+    <div class="about-frame"></div>
+  </div>
+  <div class="about-content reveal">
+    <div class="section-label">
+      <span class="ja">はじめに</span>
+      <span class="en">About</span>
+    </div>
+    <h2 class="section-title">
+      <span class="ja"></span>
+      <span class="en"></span>
+    </h2>
+    <p class="about-text">
+      <span class="ja">地域に根差した設計事務所をコンセプトに開業から50余年。<br>新築・リノベーション問わず、施主様の想いを丁寧に汲み取り、機能美と住み心地を両立した住まいを提案します。</span>
+      <span class="en">It has been open for over 50 years, based on the concept of a design office with roots in the local area. <br>Whether new or renovated, we carefully understand the feelings of our clients and propose homes that combine functional beauty and comfort.</span>
+    </p>
+    <p class="about-text">
+      <span class="ja">設計において最も大切にしているのは「対話」です。<br>施主さまとの丁寧なコミュニケーションを通じて、住まいを実現します。</span>
+      <span class="en">What I value most in design is "dialogue.<br>" Through careful communication with clients, I realize truly one-of-a-kind homes.</span>
+    </p>
+    <div class="about-skills">
+      <span class="skill-tag"><span class="ja">新築住宅</span><span class="en">New Build</span></span>
+      <span class="skill-tag"><span class="ja">リノベーション</span><span class="en">Renovation</span></span>
+      <span class="skill-tag"><span class="ja">インテリアデザイン</span><span class="en">Interior</span></span>
+      <span class="skill-tag"><span class="ja">パッシブデザイン</span><span class="en">Passive Design</span></span>
+      <span class="skill-tag"><span class="ja">木造構造</span><span class="en">Timber Frame</span></span>
+      <span class="skill-tag"><span class="ja">省エネ設計</span><span class="en">Energy Efficient</span></span>
+    </div>
+  </div>
+</section>
+
+<div class="h-line"></div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-header reveal">
+    <div class="section-label">
+      <span class="ja">サービス・料金</span>
+      <span class="en">Services & Fees</span>
+    </div>
+    <h2 class="section-title">
+      <span class="ja">ご提供できる<br>サービス一覧</span>
+      <span class="en">What I Can<br>Offer You</span>
+    </h2>
+  </div>
+  <div class="services-grid reveal">
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <div class="service-name"><span class="ja">新築住宅設計</span><span class="en">New Construction</span></div>
+      <div class="service-name-en"><span class="ja">New Build Design</span><span class="en">完全オーダーメイド</span></div>
+      <p class="service-desc">
+        <span class="ja">土地の特性や家族の暮らし方を丁寧にヒアリングし、敷地調査から基本設計・実施設計・工事監理まで一貫してサポートします。</span>
+        <span class="en">From land survey to construction supervision, I support you through every stage of designing your custom home, tailored to your land and lifestyle.</span>
+      </p>
+      <div class="service-price-label"><span class="ja">設計料の目安</span><span class="en">Starting From</span></div>
+      <div class="service-price"><span class="ja">工事費の10〜12%</span><span class="en">10–12% of Build Cost</span></div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <div class="service-name"><span class="ja">リノベーション設計</span><span class="en">Renovation Design</span></div>
+      <div class="service-name-en"><span class="ja">Renovation & Reform</span><span class="en">既存住宅の再生</span></div>
+      <p class="service-desc">
+        <span class="ja">既存の建物の良さを活かしながら、現代の暮らしに合わせたリノベーション設計を行います。耐震補強も対応可能です。</span>
+        <span class="en">I breathe new life into existing buildings while preserving their character, redesigning them to suit modern living. Seismic reinforcement also available.</span>
+      </p>
+      <div class="service-price-label"><span class="ja">設計料の目安</span><span class="en">Starting From</span></div>
+      <div class="service-price"><span class="ja">工事費の12〜15%</span><span class="en">12–15% of Reno Cost</span></div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <div class="service-name"><span class="ja">設計相談・監修</span><span class="en">Consultation</span></div>
+      <div class="service-name-en"><span class="ja">Advisory Services</span><span class="en">アドバイザリー</span></div>
+      <p class="service-desc">
+        <span class="ja">ハウスメーカーや工務店の設計図面へのセカンドオピニオン、間取りの相談、住宅購入前のアドバイスなど幅広く対応します。</span>
+        <span class="en">I offer second opinions on builder plans, floor layout consultations, and pre-purchase advice to help you make informed decisions.</span>
+      </p>
+      <div class="service-price-label"><span class="ja">料金</span><span class="en">Rate</span></div>
+      <div class="service-price"><span class="ja">¥15,000 / 時間</span><span class="en">¥15,000 / hour</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="reveal">
+    <div class="section-label">
+      <span class="ja">実績・ポートフォリオ</span>
+      <span class="en">Portfolio</span>
+    </div>
+    <h2 class="section-title">
+      <span class="ja">これまでの<br>設計実績</span>
+      <span class="en">Selected<br>Works</span>
+    </h2>
+  </div>
+  <div class="portfolio-grid reveal">
+    <div class="portfolio-item">
+      <div class="portfolio-visual" onclick="openModal(['images/portfolio1-01.jpg','images/portfolio1-02.jpg','images/portfolio1-03.jpg','images/portfolio1-04.jpg','images/portfolio1-05.jpg'])" <div class="portfolio-visual" onclick="openModal(['images/portfolio1-01.jpg','images/portfolio1-02.jpg','images/portfolio1-03.jpg'])" style="cursor:pointer; background: linear-gradient(rgba(44,44,42,0.4), rgba(44,44,42,0.4)), url('images/portfolio1-01.jpg') center/cover no-repeat;">>
+        <div class="portfolio-inner-pattern">
+          <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+          <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+          <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+          <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+          <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+          <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+          <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+          <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+        </div>
+        <div class="portfolio-overlay"></div>
+        <div class="portfolio-label">
+          <div class="portfolio-label-jp"><span class="ja">格子のある家 — 奈良県</span><span class="en">House with lattice — Nara</span></div>
+          <div class="portfolio-label-meta"><span class="ja">延床面積 120㎡ · 2010年竣工</span><span class="en">120㎡ · Completed 2010</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="portfolio-item">
+      <div class="portfolio-visual" style="cursor:default; opacity:0.6;">
+        <div class="portfolio-inner-pattern"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+        <div class="portfolio-overlay"></div>
+        <div class="portfolio-label">
+          <div class="portfolio-label-jp">
+            <span class="ja">Coming Soon</span>
+            <span class="en">Coming Soon</span>
+          </div>
+          <div class="portfolio-label-meta">
+            <span class="ja">近日公開予定</span>
+            <span class="en">New project coming soon</span>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-left reveal">
+    <div class="section-label">
+      <span class="ja">お問い合わせ</span>
+      <span class="en">Contact</span>
+    </div>
+    <h2 class="section-title">
+      <span class="ja">まずは<br>お気軽にご相談を</span>
+      <span class="en">Let's Start<br>a Conversation</span>
+    </h2>
+    <p class="contact-intro">
+      <span class="ja">住まいに関するご相談を、初回は無料でお受けしています。<br>どんな小さなことでもお気軽にお声がけください。</span>
+      <span class="en">Initial consultations about your home are free of charge. Feel free to reach out about anything, however small.</span>
+    </p>
+    <div class="contact-info-item">
+      <div class="contact-info-icon">✉</div>
+      <div>
+        <div class="contact-info-label">Email</div>
+        <div class="contact-info-value">h.msk0322@gmail.com</div>
+      </div>
+    </div>
+    <div class="contact-info-item">
+      <div class="contact-info-icon">☎</div>
+      <div>
+        <div class="contact-info-label"><span class="ja">電話</span><span class="en">Phone</span></div>
+        <div class="contact-info-value">090-8213-5301 (平日10:00-18:00)</div>
+      </div>
+    </div>
+    <div class="contact-info-item">
+      <div class="contact-info-icon">◎</div>
+      <div>
+        <div class="contact-info-label"><span class="ja">対応エリア</span><span class="en">Service Area</span></div>
+        <div class="contact-info-value"><span class="ja">奈良・大阪・和歌山・京都（その他応相談）</span><span class="en">Nara, Osaka, Wakayama, Kyoto (others on request)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <form class="contact-form reveal" action="https://formspree.io/f/mdawgnpy" method="POST">
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label"><span class="ja">お名前</span><span class="en">Name</span></label>
+        <input type="text" name="お名前" class="form-input" placeholder="">
+      </div>
+      <div class="form-group">
+        <label class="form-label"><span class="ja">メールアドレス</span><span class="en">Email</span></label>
+        <input type="email" name="メールアドレス" class="form-input" placeholder="">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label"><span class="ja">ご相談内容(新築・増改築・リノベーション)</span><span class="en">Subject</span></label>
+      <input type="text" name="件名" class="form-input" placeholder="">
+    </div>
+    <div class="form-group">
+      <label class="form-label"><span class="ja">詳細・ご要望</span><span class="en">Message</span></label>
+      <textarea class="form-textarea"></textarea>
+    </div>
+    <button type="submit" class="form-submit">
+      <span class="ja">送信する</span>
+      <span class="en">Send Message</span>
+    </button>
+  </form>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <span class="ja">正木 建築設計事務所</span>
+    <span class="en">Masaki Architecture</span>
+  </div>
+  <div class="footer-copy">
+    © 2026 Masaki Architecture. All rights reserved.
+  </div>
+</footer>
+
+<script>
+  // Language toggle
+  function setLang(lang) {
+    document.body.className = 'lang-' + lang;
+    document.getElementById('btn-ja').classList.toggle('active', lang === 'ja');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 100);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+      let currentPhotos = [];
+      let currentIndex = 0;
+
+      function openModal(photos) {
+        currentPhotos = photos;
+        currentIndex = 0;
+        updateModal();
+        document.getElementById('modal').classList.add('active');
+      }
+      function closeModal() {
+        document.getElementById('modal').classList.remove('active');
+      }
+      function changePhoto(dir) {
+        currentIndex = (currentIndex + dir + currentPhotos.length) % currentPhotos.length;
+        updateModal();
+      }
+      function updateModal() {
+        document.getElementById('modal-img').src = currentPhotos[currentIndex];
+        document.getElementById('modal-counter').textContent = (currentIndex + 1) + ' / ' + currentPhotos.length;
+      }
+      window.addEventListener('load', function() {
+        document.getElementById('modal').addEventListener('click', function(e) {
+          if (e.target === this) closeModal();
+        });
+});    function closeModal() {
+    document.getElementById('modal').classList.remove('active');
+    }
+</script>
+  <div class="modal" id="modal">
+  <button class="modal-close" onclick="closeModal()">✕</button>
+  <button class="modal-prev" onclick="changePhoto(-1)">&#8249;</button>
+  <img class="modal-img" id="modal-img" src="" alt="">
+  <button class="modal-next" onclick="changePhoto(1)">&#8250;</button>
+  <div class="modal-counter" id="modal-counter"></div>
+  </div>
+</body>
+</html>
